@@ -1,3 +1,6 @@
+# english-dictionary-client
+Client-side code for the WF Technical Test
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
