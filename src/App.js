@@ -1,9 +1,8 @@
 import React, { Component } from "react";
-// import { Switch, Route } from "react-router-dom";
+// import { Switch } from "react-router-dom";
 import SearchBar from "./components/SearchBar.js";
 import EntriesSubmission from "./components/EntriesSubmission.js";
 import SearchResult from "./components/SearchResult.js";
-import dictionary from "./terms.json";
 // import logo from './logo.svg';
 import "./App.css";
 
@@ -45,24 +44,45 @@ class App extends Component {
   }
 
   populateDictionary(event, dictionary) {
-    event.preventDefault();
+    // event.preventDefault();
     const dictionaryObject = JSON.parse(dictionary);
     this.setState({
       dictionary: dictionaryObject
+    }, () => {
+      console.log("dictionary set");
     });
+  }
 
+  clearDictionary() {
+    // event.preventDefault();
+    this.setState({
+      dictionary: {}
+    });
   }
 
   render() {
-    return (
+    const { dictionary } = this.state;
+    return Object.keys(dictionary).length ? ( 
       <div className="App">
-        <header className="App-header">
-          {/* Maybe navlinks later here later for switching between dictionary submission and dictionary search, hence with a <Switch> component below */}
-        </header>
-        <EntriesSubmission dataSubmission={(event, dictionary) => this.populateDictionary(event, dictionary)} />
-        <SearchBar termSubmission={(event, term) => this.submitTerm(event, term)} />
-        <SearchResult result={this.state.result}/>
-      </div>
+      <header className="App-header">
+        <h1>Explore Dictionary</h1>
+      </header>
+      <h3>
+      Or <button onClick={() => this.clearDictionary()}>Clear Dictionary Data</button>
+      </h3>
+      {/* <EntriesSubmission dataSubmission={(event, dictionary) => this.populateDictionary(event, dictionary)} /> */}
+      <SearchBar termSubmission={(event, term) => this.submitTerm(event, term)} />
+      <SearchResult result={this.state.result}/>
+  </div>
+    ) : (
+      <div className="App">
+      <header className="App-header">
+      <h1>Load Your Dictionary</h1>
+      </header>
+      <EntriesSubmission dataSubmission={(event, dictionary) => this.populateDictionary(event, dictionary)} />
+      {/* <SearchBar termSubmission={(event, term) => this.submitTerm(event, term)} />
+      <SearchResult result={this.state.result}/> */}
+  </div>
     );
   }
 }

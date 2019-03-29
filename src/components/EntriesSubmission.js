@@ -13,14 +13,17 @@ class EntriesSubmission extends Component {
     const { name, value } = event.target;
     this.setState({
       [name]: value
+    }, () => {
+      const { dictionary } = this.state;
+      this.props.dataSubmission(event, dictionary)
     });
   }
 
   render() {
     return (
       <section className="EntriesSubmission">
-        <h2>Provide Your Own Dictionary</h2>
-        <form onClick={event => this.props.dataSubmission(event, this.state.dictionary)}>
+        <h2>You will be able to search it once loaded</h2>
+        {/* <form> */}
           <label>
             Paste your JSON here:{" "}
             <input
@@ -28,11 +31,11 @@ class EntriesSubmission extends Component {
               value={this.state.submission}
               name="dictionary"
               type="text"
-              placeholder='{ "term" : "definition"}'
+              placeholder='{ "term" : "definition"}, ...'
             />
           </label>
-          <button>Submit Your Data</button>
-          </form>
+          {/* <button>Submit Your Data</button>
+          </form> */}
       </section>    
     );
   }
