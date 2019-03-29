@@ -2,10 +2,13 @@ import React, { Component } from "react";
 import "./SearchBar.css";
 
 class SearchBar extends Component {
-  state = {
+  constructor(props) {
+    super(props);
+    // App.js will centralize all child components' data (dictionary, query, result)
+    this.state = {
       query: ""
     };
-  
+  }
 
   genericOnChange(event) {
     const { name, value } = event.target;
@@ -19,7 +22,7 @@ class SearchBar extends Component {
     return (
       <section className="SearchBar">
         <h2>Find a Term</h2>
-        <form>
+        <form onSubmit={event => this.props.termSubmission(event, this.state.query)}>
           <label>
             Query:{" "}
             <input
