@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 // import { Switch, Route } from "react-router-dom";
 import SearchBar from "./components/SearchBar.js";
-// import EntriesSubmission from "./components/EntriesSubmission.js";
+import EntriesSubmission from "./components/EntriesSubmission.js";
 import SearchResult from "./components/SearchResult.js";
 import dictionary from "./terms.json";
 // import logo from './logo.svg';
@@ -13,7 +13,7 @@ class App extends Component {
     // App.js will centralize all child components' data (dictionary, query, result)
     this.state = {
       // Dictionary is provided as a JSON by the user via <EntriesSubmission/>
-      dictionary: dictionary,
+      dictionary: {},
       // result will be passed to <SearchResult/> as prop
       // genricOnChange will update query and be passed to <SearchBar/> as a prop
       query: "",
@@ -30,7 +30,7 @@ class App extends Component {
     console.log("submitTerm", term);
     var response = {
       term: "No such term found",
-      definition: "Please provide a string to look for."
+      definition: "Please provide another string to look for."
     };
     const { dictionary } = this.state;
     for (const [key, value] of Object.entries(dictionary)) {
@@ -44,13 +44,22 @@ class App extends Component {
     });
   }
 
+  populateDictionary(event, dictionary) {
+    event.preventDefault();
+    const dictionaryObject = JSON.parse(dictionary);
+    this.setState({
+      dictionary: dictionaryObject
+    });
+
+  }
+
   render() {
     return (
       <div className="App">
         <header className="App-header">
           {/* Maybe navlinks later here later for switching between dictionary submission and dictionary search, hence with a <Switch> component below */}
         </header>
-        {/* <EntriesSubmission/> */}
+        <EntriesSubmission dataSubmission={(event, dictionary) => this.populateDictionary(event, dictionary)} />
         <SearchBar termSubmission={(event, term) => this.submitTerm(event, term)} />
         <SearchResult result={this.state.result}/>
       </div>
