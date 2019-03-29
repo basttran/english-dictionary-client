@@ -32,9 +32,9 @@ class App extends Component {
         <header className="App-header">
           {/* Maybe navlinks later here later for switching between dictionary submission and dictionary search, hence with a <Switch> component below */}
         </header>
-          <EntriesSubmission/>
+          {/* <EntriesSubmission/> */}
           <SearchBar/>
-          <SearchResult/>
+          {/* <SearchResult/> */}
       </div>
     );
   }
